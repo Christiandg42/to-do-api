@@ -10,7 +10,7 @@ import com.christian.todoapi.service.TaskService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
-
+import java.time.LocalDate;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -115,5 +115,14 @@ public class TaskController {
     ) {
         service.deleteTask(id);
         return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping("/deadline/{deadline}")
+    @Operation(summary = "Obtener tareas por fecha límite")
+    public List<GetTaskDto> getTasksByDeadline(
+            @Parameter(description = "Fecha límite de la tarea en formato YYYY-MM-DD")
+            @PathVariable LocalDate deadline
+    ) {
+        return service.getTasksByDeadline(deadline);
     }
 }

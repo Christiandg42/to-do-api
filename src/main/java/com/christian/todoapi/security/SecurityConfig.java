@@ -43,6 +43,7 @@ public class SecurityConfig {
 
                         // Registro público
                         .requestMatchers(HttpMethod.POST, "/api/users").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/auth/register").permitAll()
 
                         // Usuarios: solo ADMIN
                         .requestMatchers("/api/users/**").hasRole("ADMIN")

@@ -12,6 +12,7 @@ import com.christian.todoapi.repos.TaskRepository;
 import com.christian.todoapi.repos.UserRepository;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -37,7 +38,6 @@ public class TaskService {
     }
 
     public List<GetTaskDto> getAllTasks() {
-
         return repository.findAll()
                 .stream()
                 .map(this::toDto)
@@ -108,7 +108,6 @@ public class TaskService {
     }
 
     public List<GetTaskDto> getTasksByStatus(TaskStatus status) {
-
         return repository.findByStatus(status)
                 .stream()
                 .map(this::toDto)
@@ -116,15 +115,20 @@ public class TaskService {
     }
 
     public List<GetTaskDto> getTasksByPriority(TaskPriority priority) {
-
         return repository.findByPriority(priority)
                 .stream()
                 .map(this::toDto)
                 .toList();
     }
 
-    public List<GetTaskDto> getTasksByTag(Long tagId) {
+    public List<GetTaskDto> getTasksByDeadline(LocalDate deadline) {
+        return repository.findByDeadline(deadline)
+                .stream()
+                .map(this::toDto)
+                .toList();
+    }
 
+    public List<GetTaskDto> getTasksByTag(Long tagId) {
         return repository.findByTags_Id(tagId)
                 .stream()
                 .map(this::toDto)
